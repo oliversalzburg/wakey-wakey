@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace WakeyWakeyLib.Windows {
 	internal static class NativeMethods {
-		/*
+		public const int HWND_BROADCAST = 0xffff;
+		public const int SC_MONITORPOWER = 0xF170;
+		public const int WM_SYSCOMMAND = 0x0112;
+		public const int MONITOR_ON = -1;
+		public const int MONITOR_OFF = 2;
+		public const int MONITOR_STANBY = 1;
+
 		[DllImport( "user32.dll", CharSet = CharSet.Auto )]
-		static extern IntPtr SendMessage( IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam );
-		*/
+		public static extern IntPtr SendMessage( IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam );
+		
 		public const int MOUSEEVENTF_MOVE = 0x0001;
 
 		[DllImport( "user32.dll" )]

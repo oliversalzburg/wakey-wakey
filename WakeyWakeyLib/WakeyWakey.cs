@@ -88,5 +88,10 @@ namespace WakeyWakeyLib {
 			int keyValue = ( disableLockScreen ) ? 1 : 0;
 			personalization.SetValue( "NoLockScreen", keyValue, RegistryValueKind.DWord );
 		}
+
+		public static void DisplayOff() {
+			NativeMethods.SendMessage( (IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_SYSCOMMAND, (IntPtr)NativeMethods.SC_MONITORPOWER, (IntPtr)NativeMethods.MONITOR_OFF );
+		}
+
 	}
 }

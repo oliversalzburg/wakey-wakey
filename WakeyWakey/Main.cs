@@ -30,14 +30,15 @@ namespace WakeyWakey {
 			notifyIcon.Icon = StatusIcons.Battery;
 			notifyIcon.ContextMenuStrip = notifyIconStrip;
 
+			notifyIcon.ShowBalloonTip( (int)TimeSpan.FromSeconds( 5 ).TotalMilliseconds, "Wakey Wakey ;)", "Monitoring power state…", ToolTipIcon.Info );
 			try {
 				WakeyWakeyLib.WakeyWakey.NoLockScreen();
 			} catch( SecurityException ) {
-				notifyIcon.ShowBalloonTip( (int)TimeSpan.FromSeconds( 5 ).TotalMilliseconds, "Elevated privileges required", "Unable to disable lock screen. Restart as Administrator.", ToolTipIcon.Error );
+				notifyIcon.ShowBalloonTip( (int)TimeSpan.FromSeconds( 5 ).TotalMilliseconds, "Elevated privileges required!", "Unable to disable lock screen. Restart as Administrator.", ToolTipIcon.Error );
 			}
 
-			WakeyWakeyLib.WakeyWakey.PollBatteryStatus();
 			WakeyWakeyLib.WakeyWakey.PowerStatusChanged += WakeyWakey_PowerStatusChanged;
+			WakeyWakeyLib.WakeyWakey.PollBatteryStatus();
 		}
 
 		void WakeyWakey_PowerStatusChanged( object sender, EventArgs e ) {
@@ -75,6 +76,7 @@ namespace WakeyWakey {
 				case PowerLineStatus.Offline:
 					if( WakeyWakeyLib.WakeyWakey.State != WakeyWakeyLib.WakeyWakey.States.Indifferent ) {
 						WakeyWakeyLib.WakeyWakey.DoWhateverTheFuckYouWant();
+						WakeyWakeyLib.WakeyWakey.DisplayOff();
 
 						notifyIcon.Icon = StatusIcons.Battery;
 						notifyIcon.Text = "AC Offline";
